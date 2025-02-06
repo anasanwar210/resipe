@@ -30,7 +30,11 @@ export class MealsComponent implements OnChanges {
       this._GetmealsService
         .getMealsByCategory(this.currentCategory.strCategory)
         .subscribe((res) => {
-          this.mealsByCat = res.meals;
+          if (!res.meals) {
+            this._Router.navigate(['notFound']);
+          } else {
+            this.mealsByCat = res.meals;
+          }
         });
     }
   }
