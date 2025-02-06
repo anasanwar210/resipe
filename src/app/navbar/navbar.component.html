@@ -1,0 +1,61 @@
+<section class="py-3 mb-6">
+  <div class="mb-6 title">
+    <h1
+      class="font-[Pacifico] font-semibold text-4xl bg-gradient-to-r from-orange-400 to-orange-900 text-transparent bg-clip-text">
+      Learn, Cook, Eat Your Food
+    </h1>
+  </div>
+
+  <ul class="flex-wrap hidden gap-3 py-3 border-b-2 md:flex">
+    <li routerLink="meals" (click)="activeLink()" (click)="getAllMeals()"
+      [ngClass]="{'bg-black text-white': currentLink === 'all'}"
+      class="px-4 py-2 capitalize transition-all duration-300 rounded-full shadow cursor-pointer hover:bg-white hover:shadow-lg">
+      all
+    </li>
+    @for (category of allCategories; track $index) {
+    <li (click)="currentLink = category" (click)="setActiveCategory(category.strCategory)"
+      (click)="sendCategory(category)" [ngClass]="{'bg-black text-white': activeCategory === category.strCategory}"
+      [class.hover:bg-white]="activeCategory !== category.strCategory"
+      class="px-4 py-2 capitalize transition-all duration-300 rounded-full shadow cursor-pointer hover:bg-white hover:shadow-lg">
+      {{category.strCategory}}</li>
+    }
+  </ul>
+
+  <div class="md:hidden">
+    <!-- <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+      Select an option
+    </label> -->
+
+    <select id="categories" (change)="selectedCat($event)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+      focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+      dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+      <option value="all">All</option>
+      @for (category of allCategories; track $index) {
+      <option [value]="category.strCategory">
+        {{ category.strCategory }}
+      </option>
+
+      }
+
+    </select>
+
+    <!-- <select id="categories" (change)="selectedCat($event)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+    focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      <option selected value="all">
+        All
+      </option>
+      @for (category of allCategories; track $index) {
+      <option [ngValue]="category">
+        {{ category.strCategory }}
+      </option>
+      }
+    </select> -->
+  </div>
+
+
+</section>
+
+<app-meals [currentLink]="currentLink" [selectedCategory]="selectedCategory" [allMeals]="allMeals"
+  [currentCategory]="currentCategory"></app-meals>
